@@ -36,9 +36,9 @@ function GenerateMap()
 	local temperature = 0;
 
 	--	local world_age
-	local world_age_new = 5;
-	local world_age_normal = 3;
-	local world_age_old = 2;
+	local world_age_new = 6;
+	local world_age_normal = 4;
+	local world_age_old = 3;
 
 	local world_age = MapConfiguration.GetValue("world_age");
 	if (world_age == 1) then
