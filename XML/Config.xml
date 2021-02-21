@@ -12,7 +12,7 @@
 	</Maps>
 
 	<DomainValueFilters>
-		<Row Domain="Maps:Expansion2Maps" Value="{D46FB7E2-305E-4B1B-AB1D-5A648609726D}Maps/SriLanka_XP2.lua" Filter="difference"/>;
+		<Row Domain="Maps:Expansion2Maps" Value="{D46FB7E2-305E-4B1B-AB1D-5A648609726D}Maps/SriLanka.lua" Filter="difference"/>;
 	</DomainValueFilters>
 
 	<!-- advanced settings -->
