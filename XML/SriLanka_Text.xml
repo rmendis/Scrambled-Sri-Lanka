@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- SriLanka_Text -->
+<!-- Author: blkbutterfly74 -->
+<!-- DateCreated: 2/20/2018 6:00:43 PM -->
+<GameData>
+	<FrontEndText>
+
+		<!-- Texts for Maps -->
+		<Row Tag="LOC_SRI_LANKA_MAP_NAME">
+			<Text>Sri Lanka</Text>
+		</Row>
+		<Row Tag="LOC_SRI_LANKA_MAP_DESCRIPTION">
+			<Text>An internally randomized map of Sri Lanka.</Text>
+		</Row>
+
+	</FrontEndText>
+</GameData>

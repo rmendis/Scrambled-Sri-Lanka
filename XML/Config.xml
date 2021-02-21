@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Config -->
+<!-- Author: blkbutterfly74 -->
+<!-- DateCreated: 2/20/2018 5:59:54 PM -->
+<GameInfo>
+	<Maps>
+		<!-- for GS -->
+		<Row Domain="Maps:Expansion2Maps" File="{D46FB7E2-305E-4B1B-AB1D-5A648609726D}Maps/SriLanka_XP2.lua" Name="LOC_SRI_LANKA_MAP_NAME" Description="LOC_SRI_LANKA_MAP_DESCRIPTION"/>
+
+		<!-- for base game -->
+		<Row File="{D46FB7E2-305E-4B1B-AB1D-5A648609726D}Maps/SriLanka.lua" Name="LOC_SRI_LANKA_MAP_NAME" Description="LOC_SRI_LANKA_MAP_DESCRIPTION"/>
+	</Maps>
+
+	<!-- advanced settings -->
+	<Parameters>
+		<Row Key1="Map" Key2="{D46FB7E2-305E-4B1B-AB1D-5A648609726D}Maps/SriLanka.lua" ParameterId="WorldAge" Name="LOC_MAP_WORLD_AGE_NAME" Description="LOC_MAP_WORLD_AGE_DESCRIPTION" Domain="WorldAge" DefaultValue="2" ConfigurationGroup="Map" ConfigurationId="world_age" GroupId="MapOptions" Hash="0" SortIndex="230"/>
+		<Row Key1="Map" Key2="{D46FB7E2-305E-4B1B-AB1D-5A648609726D}Maps/SriLanka.lua" ParameterId="Rainfall" Name="LOC_MAP_RAINFALL_NAME" Description="LOC_MAP_RAINFALL_DESCRIPTION" Domain="Rainfall" DefaultValue="2" ConfigurationGroup="Map" ConfigurationId="rainfall" GroupId="MapOptions" Hash="0" SortIndex="250"/>
+		<Row Key1="Map" Key2="{D46FB7E2-305E-4B1B-AB1D-5A648609726D}Maps/SriLanka_XP2.lua" ParameterId="WorldAge" Name="LOC_MAP_WORLD_AGE_NAME" Description="LOC_MAP_WORLD_AGE_DESCRIPTION" Domain="WorldAge" DefaultValue="2" ConfigurationGroup="Map" ConfigurationId="world_age" GroupId="MapOptions" Hash="0" SortIndex="230"/>
+		<Row Key1="Map" Key2="{D46FB7E2-305E-4B1B-AB1D-5A648609726D}Maps/SriLanka_XP2.lua" ParameterId="Rainfall" Name="LOC_MAP_RAINFALL_NAME" Description="LOC_MAP_RAINFALL_DESCRIPTION" Domain="Rainfall" DefaultValue="2" ConfigurationGroup="Map" ConfigurationId="rainfall" GroupId="MapOptions" Hash="0" SortIndex="250"/>
+	</Parameters>
+</GameInfo>
