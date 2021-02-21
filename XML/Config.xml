@@ -11,6 +11,10 @@
 		<Row File="{D46FB7E2-305E-4B1B-AB1D-5A648609726D}Maps/SriLanka.lua" Name="LOC_SRI_LANKA_MAP_NAME" Description="LOC_SRI_LANKA_MAP_DESCRIPTION"/>
 	</Maps>
 
+	<DomainValueFilters>
+		<Row Domain="Maps:Expansion2Maps" Value="{D46FB7E2-305E-4B1B-AB1D-5A648609726D}Maps/SriLanka_XP2.lua" Filter="difference"/>;
+	</DomainValueFilters>
+
 	<!-- advanced settings -->
 	<Parameters>
 		<Row Key1="Map" Key2="{D46FB7E2-305E-4B1B-AB1D-5A648609726D}Maps/SriLanka.lua" ParameterId="WorldAge" Name="LOC_MAP_WORLD_AGE_NAME" Description="LOC_MAP_WORLD_AGE_DESCRIPTION" Domain="WorldAge" DefaultValue="2" ConfigurationGroup="Map" ConfigurationId="world_age" GroupId="MapOptions" Hash="0" SortIndex="230"/>

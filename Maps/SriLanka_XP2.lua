@@ -1,6 +1,6 @@
--- SriLanka
+-- SriLanka_XP2
 -- Author: blkbutterfly74
--- DateCreated: 10/7/2017 7:29:20 PM
+-- DateCreated: 2/21/2021 5:56:22 AM
 -- Creates a Tiny/dual sized map shaped like real-world Sri Lanka (and South India).
 -- based off Scrambled South America & Australia map scripts
 -- Thanks to Firaxis
@@ -14,6 +14,7 @@ include "FeatureGenerator"
 include "TerrainGenerator"
 include "NaturalWonderGenerator"
 include "ResourceGenerator"
+include "CoastalLowlands"
 include "AssignStartingPlots"
 
 local g_iW, g_iH;
@@ -22,33 +23,48 @@ local g_continentsFrac = nil;
 local g_iNumTotalLandTiles = 0; 
 local g_CenterX = 37;
 local g_CenterY = 13;
+local featuregen = nil;
 
 -------------------------------------------------------------------------------
 function GenerateMap()
-	print("Generating South America Map");
+	print("Generating Sri Lanka Map");
 	local pPlot;
 
 	-- Set globals
 	g_iW, g_iH = Map.GetGridSize();
 	g_iFlags = TerrainBuilder.GetFractalFlags();
 	local temperature = 0;
+
+	--	local world_age
+	local world_age_new = 5;
+	local world_age_normal = 3;
+	local world_age_old = 2;
+
+	local world_age = MapConfiguration.GetValue("world_age");
+	if (world_age == 1) then
+		world_age = world_age_new;
+	elseif (world_age == 3) then
+		world_age = world_age_old;
+	else
+		world_age = world_age_normal;	-- default
+	end
 	
 	plotTypes = GeneratePlotTypes();
 	terrainTypes = GenerateTerrainTypesSriLanka(plotTypes, g_iW, g_iH, g_iFlags, true);
+	ApplyBaseTerrain(plotTypes, terrainTypes, g_iW, g_iH);
 
-	for i = 0, (g_iW * g_iH) - 1, 1 do
-		pPlot = Map.GetPlotByIndex(i);
-		if (plotTypes[i] == g_PLOT_TYPE_HILLS) then
-			terrainTypes[i] = terrainTypes[i] + 1;
-		end
-		TerrainBuilder.SetTerrainType(pPlot, terrainTypes[i]);
-	end
-
-	-- Temp
 	AreaBuilder.Recalculate();
+	--[[ blackbutterfly74 - Why this additional AnalyzeChockepoint()? Commenting out for now:
+	TerrainBuilder.AnalyzeChokepoints(); --]]
+	TerrainBuilder.StampContinents();
+
+	local iContinentBoundaryPlots = GetContinentBoundaryPlotCount(g_iW, g_iH);
 	local biggest_area = Areas.FindBiggestArea(false);
 	print("After Adding Hills: ", biggest_area:GetPlotCount());
-	
+	AddTerrainFromContinents(plotTypes, terrainTypes, world_age, g_iW, g_iH, iContinentBoundaryPlots);
+
+	AreaBuilder.Recalculate();
+
 	-- Place lakes before rivers so that they may act as sources
 	local numLargeLakes = math.floor(GameInfo.Maps[Map.GetMapSize()].Continents * 0.3);
 	AddLakes(numLargeLakes);
@@ -58,6 +74,8 @@ function GenerateMap()
 
 	AddFeatures();
 	
+	TerrainBuilder.AnalyzeChokepoints();
+
 	print("Adding cliffs");
 	AddCliffs(plotTypes, terrainTypes);
 	
@@ -67,10 +85,9 @@ function GenerateMap()
 
 	local nwGen = NaturalWonderGenerator.Create(args);
 
-	AreaBuilder.Recalculate();
-	TerrainBuilder.AnalyzeChokepoints();
-	TerrainBuilder.StampContinents();
-	
+	AddFeaturesFromContinents();
+	MarkCoastalLowlands();
+
 	local resourcesConfig = MapConfiguration.GetValue("resources");
 	local startConfig = MapConfiguration.GetValue("start");-- Get the start config
 	local args = {
@@ -104,6 +121,7 @@ function GetMapInitData(MapSize)
 	local WrapX = false;
 	return {Width = Width, Height = Height, WrapX = WrapX,}
 end
+
 -------------------------------------------------------------------------------
 function GeneratePlotTypes()
 	print("Generating Plot Types");
@@ -206,22 +224,6 @@ function GeneratePlotTypes()
 	end
 		
 	AreaBuilder.Recalculate();
-		
-	--	world_age
-	local world_age_new = 6;
-	local world_age_normal = 4;
-	local world_age_old = 3;
-
-	local world_age = MapConfiguration.GetValue("world_age");
-	if (world_age == 1) then
-		world_age = world_age_new;
-	elseif (world_age == 2) then
-		world_age = world_age_normal;
-	elseif (world_age == 3) then
-		world_age = world_age_old;
-	else
-		world_age = 2 + TerrainBuilder.GetRandomNumber(4, "Random World Age - Lua");
-	end
 	
 	local args = {};
 	args.world_age = world_age;
@@ -295,9 +297,9 @@ function AddFeatures()
 	end
 
 	local args = {rainfall = rainfall, iJunglePercent = 55, iMarshPercent = 7, iForestPercent = 15, iReefPercent = 12}	-- jungle & marsh max coverage
-	local featuregen = FeatureGenerator.Create(args);
+	featuregen = FeatureGenerator.Create(args);
 
-	featuregen:AddFeatures();
+	featuregen:AddFeatures(true, true);  --second parameter is whether or not rivers start inland);
 
 	-- add extra rainforest more densely at center
 	for iX = 0, g_iW - 1 do
@@ -447,8 +449,8 @@ function GenerateTerrainTypesSriLanka(plotTypes, iW, iH, iFlags, bNoCoastalMount
 	return terrainTypes; 
 end
 ------------------------------------------------------------------------------
-function FeatureGenerator:AddIceAtPlot(plot, iX, iY)
-	return false;
+function FeatureGenerator:AddIceToMap()
+	return false, 0;
 end
 
 ------------------------------------------------------------------------------
@@ -551,4 +553,11 @@ function FeatureGenerator:AddJunglesAtPlot(plot, iX, iY)
 	end
 
 	return false
+end
+
+------------------------------------------------------------------------------
+function AddFeaturesFromContinents()
+	print("Adding Features from Continents");
+
+	featuregen:AddFeaturesFromContinents();
 end

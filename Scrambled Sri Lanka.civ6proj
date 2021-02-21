@@ -17,7 +17,7 @@
     <AssemblyName>Scrambled Sri Lanka</AssemblyName>
     <RootNamespace>Scrambled Sri Lanka</RootNamespace>
     <FrontEndActionData><![CDATA[<FrontEndActions><UpdateDatabase id="UpdateConfig"><File>XML/Config.xml</File></UpdateDatabase><UpdateText id="UpdateText"><File>XML/SriLanka_Text.xml</File></UpdateText></FrontEndActions>]]></FrontEndActionData>
-    <InGameActionData><![CDATA[<InGameActions><UpdateDatabase id="UpdateDefaults"><File>XML/SriLanka.xml</File></UpdateDatabase><ImportFiles id="ImportMap"><File>Maps/SriLanka.lua</File></ImportFiles></InGameActions>]]></InGameActionData>
+    <InGameActionData><![CDATA[<InGameActions><UpdateDatabase id="UpdateDefaults"><File>XML/SriLanka.xml</File></UpdateDatabase><ImportFiles id="ImportMaps"><File>Maps/SriLanka.lua</File><File>Maps/SriLanka_XP2.lua</File></ImportFiles></InGameActions>]]></InGameActionData>
     <CompatibleVersions>1.2,2.0</CompatibleVersions>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Default' ">
@@ -29,6 +29,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Maps\SriLanka.lua">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Maps\SriLanka_XP2.lua">
       <SubType>Content</SubType>
     </Content>
     <Content Include="XML\Config.xml">
